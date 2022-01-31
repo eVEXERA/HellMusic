@@ -3,8 +3,8 @@ import asyncio
 
 from Config import ASSISTANT_NAME, BOT_USERNAME, IMG_1, IMG_2, IMG_6
 from HellMusic.inline import stream_markup
-from Process.design.thumbnail import thumb
-from Process.design.chatname import CHAT_TITLE
+
+from Process.fonts import CHAT_TITLE
 from Process.filters import command, other_filters
 from Process.queues import QUEUE, add_to_queue
 from ImageFont.main import call_py, user
@@ -208,7 +208,7 @@ async def vplay(c: Client, m: Message):
                     userid = m.from_user.id
                     gcname = m.chat.title
                     ctitle = await CHAT_TITLE(gcname)
-                    image = await thumb(thumbnail, title, userid, ctitle)
+                    image = await generate_cover(thumbnail, title, userid, ctitle)
                     veez, ytlink = await ytdl(url)
                     if veez == 0:
                         await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -285,7 +285,7 @@ async def vplay(c: Client, m: Message):
                 userid = m.from_user.id
                 gcname = m.chat.title
                 ctitle = await CHAT_TITLE(gcname)
-                image = await thumb(thumbnail, title, userid, ctitle)
+                image = await generate_cover(thumbnail, title, userid, ctitle)
                 veez, ytlink = await ytdl(url)
                 if veez == 0:
                     await loser.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
